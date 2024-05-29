@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">  
+	    <title>Visual Admin - Login</title>
+        <meta name="description" content="">
+        <meta name="author" content="templatemo">
+        <!-- 
+        Visual Admin Template
+        https://templatemo.com/tm-455-visual-admin
+        -->
+	    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,700' rel='stylesheet' type='text/css'>
+	    <link href="css2/font-awesome.min.css" rel="stylesheet">
+	    <link href="css2/bootstrap.min.css" rel="stylesheet">
+	    <link href="css2/templatemo-style.css" rel="stylesheet">
+	    
+	    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	    <!--[if lt IE 9]>
+	      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	    <![endif]-->
+	</head>
+	<?php 
+	session_start();
+	include('connection.php');
+
+	
+	?>
+	<body class="light-gray-bg">
+		<div class="templatemo-content-widget templatemo-login-widget white-bg">
+			<header class="text-center">
+	          <div class="square"></div>
+	          <h1>inscription GRATUIT!!</h1>
+	        </header>
+	        <form method="post" class="templatemo-login-form">
+	        	<div class="form-group">
+	        		<div class="input-group">
+		        		<div class="input-group-addon"><i class="fa fa-user fa-fw"></i></div>	        		
+		              	<input type="text" class="form-control" placeholder="votre nom" name="nom">           
+		          	</div>	
+	        	</div>
+				<div class="form-group">
+	        		<div class="input-group">
+		        		<div class="input-group-addon"><i class="fa fa-user fa-fw"></i></div>	        		
+		              	<input type="text" class="form-control" placeholder="votre prenom" name="prenom">           
+		          	</div>	
+	        	</div>
+				<div class="form-group">
+	        		<div class="input-group">
+		        		<div class="input-group-addon"><i class="fa fa-user fa-fw"></i></div>	        		
+		              	<input type="text" class="form-control" placeholder="mail@gmail.com" name="email">           
+		          	</div>	
+	        	</div>
+
+				<div class="form-group">
+	        		<div class="input-group">
+		        		<div class="input-group-addon"><i class="fa fa-user fa-fw"></i></div>	        		
+		              	<input type="text" class="form-control" placeholder="06XXXXXXXX" name="tele">           
+		          	</div>	
+	        	</div>
+				
+	        	<div class="form-group">
+	        		<div class="input-group">
+		        		<div class="input-group-addon"><i class="fa fa-key fa-fw"></i></div>	        		
+		              	<input type="password" class="form-control" placeholder="******" name="passe">           
+		          	</div>	
+	        	</div>	          	
+	          	
+				<div class="form-group">
+					<button type="submit" class="templatemo-blue-button width-100" name="btn">valider</button>
+				</div>
+	        </form>
+			<?php
+			if(isset($_POST['btn'])){
+              $nom=$_POST['nom'];
+              $prenom=$_POST['prenom'];
+              $tele=$_POST['tele'];
+			  
+              $email=$_POST['email'];
+              $passe=$_POST['passe'];
+
+			  $rech=mysqli_query($conn,"select * from client where emailc='$email'");
+			  if(mysqli_num_rows($rech)>0){
+				echo "<script>alert('Bien, Deja Existe!');</script>";
+			  }
+			  else{ 
+      
+		
+			  $ins=mysqli_query($conn,"insert into client(nomc,emailc,passec) values('$nom','$email','$passe')");
+            
+	        if($ins){
+				echo "<script>alert('Bien, Connectez Vous');</script>";
+				echo "<script>window.location.href='login.php';</script>";
+			}
+			else{echo "<script>alert('Ereur');</script>";}
+
+
+
+
+
+
+		}
+			}
+			
+			
+			
+			?>
+
+
+		</div>
+		<div class="templatemo-content-widget templatemo-login-widget templatemo-register-widget white-bg">
+			<p><strong><a href="login.php" class="blue-text">login</a></strong></p>
+		</div>
+	</body>
+</html>
